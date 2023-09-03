@@ -1,14 +1,11 @@
+<html lang="es">
 
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Calor y Comunas</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <title>Mapa de Calor</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9-bmvA0sT-x-FVC3dTqxua81F6uUxAl4&libraries=visualization"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -17,30 +14,36 @@
             background-size: cover;
             background-position: center center;
         }
+
         .navbar {
             background-color: #014a84;
             opacity: 0.9;
         }
+
         .navbar-brand {
             color: white !important;
         }
+
         #title {
             color: #FFD100;
         }
+
         #map {
             height: 80vh;
             width: 100%;
             margin-top: 20px;
             border-radius: 8px;
         }
+
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.8); /* semi-transparent white */
             padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#"><span id="title">MAPA DE CALOR</span> - CAJA LOS ANDES</a>
@@ -71,7 +74,6 @@
         <div id="map"></div>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9-bmvA0sT-x-FVC3dTqxua81F6uUxAl4&libraries=visualization"></script>
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -79,12 +81,12 @@
                 center: {
                     lat: -33.45,
                     lng: -70.65
-                },
+                }, // Coordenadas de Santiago, Chile
                 mapTypeId: 'roadmap'
             });
 
             var heatmapData = [
-                // Aquí puedes poner tus datos de coordenadas y pesos
+                // Aquí puedes poner tus datos, por ejemplo:
                 {
                     location: new google.maps.LatLng(-33.45, -70.65),
                     weight: 0.5
@@ -101,4 +103,5 @@
         google.maps.event.addDomListener(window, 'load', initMap);
     </script>
 </body>
+
 </html>
