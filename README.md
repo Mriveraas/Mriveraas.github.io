@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -48,10 +49,9 @@
             box-shadow: 0 0 10px rgba(1,74,132,0.5) !important;
             border: 1px solid #014a84 !important;
         }
-    </style>
-</head>
+    </style> </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+ <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#"><span id="title">MAPA DE CALOR</span> - CAJA LOS ANDES</a>
     </nav>
     <div class="container">
@@ -90,23 +90,54 @@
             </div>
         </div>
         <div id="map"></div>
-    </div>
-    <script>
+    </div>   
+ <script>
         var map;
         var heatmap;
+
+        // Datos ficticios de los beneficiarios en cada comuna
+        var data = {
+            santiago: [
+                { location: new google.maps.LatLng(-33.45, -70.65), weight: 10 }, // Caja Escolar
+                { location: new google.maps.LatLng(-33.45, -70.65), weight: 30 }, // Primera Caja
+                // Añade más puntos según la necesidad.
+            ],
+            providencia: [
+                { location: new google.maps.LatLng(-33.43, -70.62), weight: 40 },
+                { location: new google.maps.LatLng(-33.43, -70.62), weight: 20 },
+                // Añade más puntos según la necesidad.
+            ],
+            // [Otras comunas...]
+        };
+
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 13,
                 center: {lat: -33.45, lng: -70.65},
                 mapTypeId: 'roadmap'
             });
-            heatmap = new google.maps.visualization.HeatmapLayer({data: []});
+            heatmap = new google.maps.visualization.HeatmapLayer({
+                data: [],
+                gradient: [
+                    'rgba(255, 0, 0, 0)', // Color de fondo transparente
+                    'rgba(255, 0, 0, 1)', // Rojo para valores bajos
+                    'rgba(255, 255, 0, 1)', // Amarillo para valores medios
+                    'rgba(0, 255, 0, 1)'  // Verde para valores altos
+                ],
+                maxIntensity: 50
+            });
             heatmap.setMap(map);
         }
-        function fetchBeneficiosData() {
-            /*Datos ficticios*/
+
+        function fetchBeneficiosData(comuna) {
+            if (comuna in data) {
+                heatmap.setData(data[comuna]);
+            } else {
+                heatmap.setData([]);
+            }
         }
-        function changeComuna() {
+
+         function changeComuna() {
             var comuna = document.getElementById("comunas").value;
             switch (comuna) {
                 case "santiago":
@@ -128,7 +159,10 @@
         }
         google.maps.event.addDomListener(window, 'load', function() {
             initMap();
-            fetchBeneficiosData();
+        }
+
+        google.maps.event.addDomListener(window, 'load', function() {
+            initMap();
         });
     </script>
 </body>
