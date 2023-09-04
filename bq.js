@@ -1,5 +1,6 @@
 const express = require('express');
 const {BigQuery} = require('@google-cloud/bigquery');
+const path = require('path');
 
 const app = express();
 const bigquery = new BigQuery();
@@ -7,7 +8,7 @@ const bigquery = new BigQuery();
 app.get('/getBeneficiosData', async (req, res) => {
     const query = `
     SELECT *
-BBSS_MRIVERAS.BENEFICIOS2023
+    FROM BBSS_MRIVERAS.BENEFICIOS2023
     `;
 
     const options = {
@@ -24,6 +25,11 @@ BBSS_MRIVERAS.BENEFICIOS2023
     }
 
     res.json(data);
+});
+
+// Sirve el archivo HTML
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 const PORT = 3000;
