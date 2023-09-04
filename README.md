@@ -1,4 +1,3 @@
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -71,35 +70,28 @@
                     <option value="temuco">Temuco</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <label for="provincias"><i class="fas fa-map-marked-alt"></i>Selecciona una provincia:</label>
-                <select class="form-control" id="provincias">
-                    <option>Provincia de Santiago</option>
-                    <option>Provincia de Cordillera</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label for="beneficios"><i class="fas fa-gift"></i>Busca un beneficio:</label>
-                <select class="form-control" id="beneficios">
-                    <option>Caja Escolar</option>
-                    <option>Primera Caja</option>
-                    <option>Bodas de Plata</option>
-                    <option>PSP Farmacias</option>
-                    <option>Beneficio Dental60</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label for="search"><i class="fas fa-search"></i>Búsqueda rápida:</label>
-                <input type="text" class="form-control" id="search" placeholder="Escribe aquí...">
-            </div>
+            <!-- Resto de las opciones de filtrado ... -->
         </div>
         <div id="map"></div>
+    </div>
+    <div class="container mt-4">
+        <h3>Detalles de la Comuna</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Beneficio</th>
+                    <th>Número de Personas</th>
+                </tr>
+            </thead>
+            <tbody id="benefitDetails">
+                <!-- Se llenará dinámicamente -->
+            </tbody>
+        </table>
     </div>
     <script>
         var map;
         var heatmap;
 
-        // Datos ficticios de los beneficiarios en varias comunas de Chile
         var data = {
             santiago: [
                 { location: new google.maps.LatLng(-33.45, -70.65), weight: 10 },
@@ -125,7 +117,7 @@
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 5,
-                center: {lat: -35.6751, lng: -71.5430},  // Centrado en Chile
+                center: {lat: -35.6751, lng: -71.5430},
                 mapTypeId: 'roadmap'
             });
 
@@ -146,7 +138,7 @@
                 radius: 30
             });
             heatmap.setMap(map);
-
+            
             google.maps.event.addListener(map, 'mousemove', function(event) {
                 var location = event.latLng;
                 var totalBenefits = 0;
@@ -168,6 +160,21 @@
             });
         }
 
+        function updateTable(comuna) {
+            var tableBody = document.getElementById('benefitDetails');
+            tableBody.innerHTML = '';
+            
+            var benefitNames = ["Caja Escolar", "Primera Caja", "Bodas de Plata", "PSP Farmacias", "Beneficio Dental60"];
+            
+            data[comuna].forEach(function (item, index) {
+                var row = tableBody.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = benefitNames[index];
+                cell2.textContent = item.weight;
+            });
+        }
+
         function changeComuna() {
             var comuna = document.getElementById("comunas").value;
             var centerCoordinates = {
@@ -181,14 +188,17 @@
             if (comuna in centerCoordinates) {
                 map.setCenter(centerCoordinates[comuna]);
             }
+            updateTable(comuna);
         }
 
         google.maps.event.addDomListener(window, 'load', function() {
             initMap();
+            updateTable(document.getElementById("comunas").value);
         });
     </script>
 </body>
 </html>
+
 
 
 
