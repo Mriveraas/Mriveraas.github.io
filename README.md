@@ -12,12 +12,13 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark"><a class="navbar-brand" href="#"><span id="title">MAPA DE CALOR</span> - CAJA LOS ANDES</a></nav>
 <div class="container">
-<div class="row"><div class="col-md-3"><label for="comunas"><i class="fas fa-city"></i> Selecciona una comuna:</label><select class="form-control" id="comunas"><option>Santiago</option><option>Providencia</option><option>Las Condes</option></select></div><div class="col-md-3"><label for="provincias"><i class="fas fa-map-marked-alt"></i> Selecciona una provincia:</label><select class="form-control" id="provincias"><option>Provincia de Santiago</option><option>Provincia de Cordillera</option></select></div><div class="col-md-3"><label for="beneficios"><i class="fas fa-gift"></i> Busca un beneficio:</label><select class="form-control" id="beneficios"><option>Caja Escolar</option><option>Primera Caja</option></select></div><div class="col-md-3"><label for="search"><i class="fas fa-search"></i> Búsqueda rápida:</label><input type="text" class="form-control" id="search" placeholder="Escribe aquí..."></div></div>
+<div class="row"><div class="col-md-3"><label for="comunas"><i class="fas fa-city"></i> Selecciona una comuna:</label><select class="form-control" id="comunas"><option>Santiago</option><option>Providencia</option><option>Las Condes</option><option>Frutillar</option><option>Temuco</option></select></div><div class="col-md-3"><label for="provincias"><i class="fas fa-map-marked-alt"></i> Selecciona una provincia:</label><select class="form-control" id="provincias"><option>Provincia de Santiago</option><option>Provincia de Cordillera</option></select></div><div class="col-md-3"><label for="beneficios"><i class="fas fa-gift"></i> Busca un beneficio:</label><select class="form-control" id="beneficios"><option>Caja Escolar</option><option>Primera Caja</option><option>Bodas de Plata</option><option>PSP Farmacias</option><option>Beneficio Dental60</option></select></div><div class="col-md-3"><label for="search"><i class="fas fa-search"></i> Búsqueda rápida:</label><input type="text" class="form-control" id="search" placeholder="Escribe aquí..."></div></div>
 <div id="map"></div>
 </div>
 <script>var heatmap;function initMap() {var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: -33.45, lng: -70.65}, mapTypeId: 'roadmap'});heatmap = new google.maps.visualization.HeatmapLayer({data: []});heatmap.setMap(map);}function fetchBeneficiosData() {fetch('/getBeneficiosData').then(response => response.json()).then(data => {let heatmapData = data.map(item => {return {location: new google.maps.LatLng(item.latitud, item.longitud), weight: item.S_persona};});heatmap.setData(heatmapData);}).catch(error => {console.error('Error fetching data:', error);});}google.maps.event.addDomListener(window, 'load', function() {initMap();fetchBeneficiosData();});</script>
 </body>
 </html>
+
 
 
 
