@@ -48,9 +48,6 @@
             box-shadow: 0 0 10px rgba(1,74,132,0.5) !important;
             border: 1px solid #014a84 !important;
         }
-        .info-window {
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -60,9 +57,10 @@
     <div class="container">
         <h2>Filtros</h2>
         <div class="row">
-            <div class="col-md-3">
-                <label for="comunas"><i class="fas fa-city"></i>Selecciona una comuna:</label>
+            <div class="col-md-2">
+                <label for="comunas"><i class="fas fa-city"></i> Comuna:</label>
                 <select class="form-control" id="comunas" onchange="changeComuna()">
+                    <!-- Opciones de comunas -->
                     <option value="santiago">Santiago</option>
                     <option value="providencia">Providencia</option>
                     <option value="valparaiso">Valparaíso</option>
@@ -70,26 +68,74 @@
                     <option value="temuco">Temuco</option>
                 </select>
             </div>
-            <!-- Resto de las opciones de filtrado ... -->
+            <div class="col-md-2">
+                <label for="provincias"><i class="fas fa-map-marked-alt"></i> Provincia:</label>
+                <select class="form-control" id="provincias">
+                    <!-- Opciones de provincias -->
+                    <option>Provincia de Santiago</option>
+                    <option>Provincia de Cordillera</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="beneficios"><i class="fas fa-gift"></i> Beneficio:</label>
+                <select class="form-control" id="beneficios">
+                    <!-- Opciones de beneficios -->
+                    <option>Caja Escolar</option>
+                    <option>Primera Caja</option>
+                    <option>Bodas de Plata</option>
+                    <option>PSP Farmacias</option>
+                    <option>Beneficio Dental60</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="pilares"><i class="fas fa-columns"></i> Pilar:</label>
+                <select class="form-control" id="pilares">
+                    <option>Salud</option>
+                    <option>Educación</option>
+                    <option>Familia</option>
+                    <option>Empleabilidad</option>
+                    <option>Emprendimiento</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="search"><i class="fas fa-search"></i> Búsqueda rápida:</label>
+                <input type="text" class="form-control" id="search" placeholder="Escribe aquí...">
+            </div>
         </div>
         <div id="map"></div>
     </div>
     <div class="container mt-4">
-        <h3>Detalles de la Comuna</h3>
-        <table class="table table-bordered table-striped">
+        <!-- Tabla de detalles -->
+        <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Comuna</th>
                     <th>Beneficio</th>
-                    <th>Número de Personas</th>
+                    <th>Usos</th>
                 </tr>
             </thead>
-            <tbody id="benefitDetails">
-                <!-- Se llenará dinámicamente -->
+            <tbody>
+                <!-- A modo de ejemplo, algunos registros para la tabla -->
+                <tr>
+                    <td>Santiago</td>
+                    <td>Caja Escolar</td>
+                    <td>45</td>
+                </tr>
+                <tr>
+                    <td>Providencia</td>
+                    <td>Primera Caja</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td>Valparaíso</td>
+                    <td>PSP Farmacias</td>
+                    <td>28</td>
+                </tr>
             </tbody>
         </table>
     </div>
     <script>
-        var map;
+      var map;
         var heatmap;
 
         var data = {
@@ -198,6 +244,7 @@
     </script>
 </body>
 </html>
+
 
 
 
