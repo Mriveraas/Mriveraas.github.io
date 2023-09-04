@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -69,6 +70,7 @@ google.maps.event.addDomListener(window,'load',function(){initMap();});
 </script>
 </body>
 </html>
+
 
 
 
